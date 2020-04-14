@@ -1,0 +1,64 @@
+- name: install LAMP stack
+  hosts: all
+  become: yes
+  become_method: sudo 
+  tasks: 
+    - name: install multiple packages
+      package: 
+        name: "{{item}}"
+        state: present
+      with_items: 
+        - httpd
+        - mariadb
+        - mariadb-server
+        - php
+        - php-mysql
+        - php-pdo
+        - php-gd
+        - php-mbstring
+        - unzip
+        - rpm
+    - name: start apache
+      systemd:
+        name: httpd
+        state: restarted
+        enabled: yes
+    - name: start mariadb
+      systemd:  
+        name: httpd
+        state: restarted
+        enabled: yes
+
+
+    - name: updatee php
+      shell: "yum -y install epel-release" 
+    - name: a  
+      shell: "rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm"
+    - name: b    
+      shell: "yum -y install yum-utils"
+    - name: b        
+      shell: "yum-config-manager --enable remi-php70"
+    - name: c   
+      shell: "yum update -y"
+    - name: d  
+      shell: "systemctl restart httpd"
+
+    
+    
+    - name: download wordpress
+      get_url: 
+        url: "https://wordpress.org/wordpress-5.2.3.zip"
+        dest: /tmp
+
+
+    - name: unzip file
+      unarchive: 
+        src: /tmp/wordpress-5.2.3.zip
+        dest: /var/www/html/
+        remote_src: yes
+
+    - name: move wordpress to /var/www/html/
+      shell: "mv /var/www/html/wordpress/* /var/www/html"
+
+    - name: grunting priv to apache
+      shell: "chown -R apache:apache /var/www/html/*"
