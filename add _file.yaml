@@ -7,6 +7,6 @@
       file:
         path: /tmp/authorized_key.{{item}}.pub
         state: touch
-    with_items:
-      - ulan
-      - miki
+      with_items:
+        - ulan
+        - miki
