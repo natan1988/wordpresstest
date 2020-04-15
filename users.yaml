@@ -4,14 +4,13 @@
   become: yes
   become_method: sudo
   tasks:
-  - include_vars: users.yaml
   - name: create user
     user: name="{{ item.username}}"
-    with_items: "{{ users }}"
+    with_items: "{{ username}}"
 
 
   - name: placing ssh
     authorized_key: user="{{item.username}}" key="{{ lookup('file', './keyfiles/authorized_key.{{item.username}}.pub')}} " 
-    with_items: "{{ users }}"
+    with_items: "{{ username }}"
 
 
