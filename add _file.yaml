@@ -4,7 +4,9 @@
   become_method: sudo
   tasks:
     - name: create files
-      shell: touch /tmp/authorized_key.{{item}}.pub
-      with_items:
-        - ulan
-        - miki
+      file:
+        path: /tmp/authorized_key.{{item}}.pub
+        state: touch
+    with_items:
+      - ulan
+      - miki
