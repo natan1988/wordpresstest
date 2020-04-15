@@ -9,6 +9,7 @@
         src: /home/{{item}}/.ssh/id_rsa.pub
         dest: /tmp/authorized_key.{{item}}.pub
         flat: true
+        validate_checksum: yes
       with_items:
         - ulan
         - miki
