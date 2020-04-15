@@ -1,0 +1,14 @@
+---
+- name: pulling keys from remote host to local
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: pulling keys
+      fetch:  
+        src: /home/{{item}}/.ssh/id_rsa.pub
+        dest: /tmp/authorized_key.{{item}}.pub
+        flat: true
+      with_items:
+        - ulan
+        - miki
