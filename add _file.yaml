@@ -1,0 +1,10 @@
+- name: Playbook for installing one package
+  hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: create files
+      shell: touch /tmp/authorized_key.{{item}}.pub
+      with_items:
+        - ulan
+        - miki
