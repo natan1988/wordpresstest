@@ -12,14 +12,6 @@
         - ulan
         - miki
 
-
-
----
-- name: Playbook for tasks
-  hosts: all
-  become: yes
-  become_method: sudo
-  tasks:
     - name:  generate key 
       user:
         name: "{{item}}"
