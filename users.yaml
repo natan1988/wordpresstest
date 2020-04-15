@@ -1,1 +1,22 @@
 ---
+- name: create user and place ssh key
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - include_vars: users.yaml
+  - name: create user
+    user: name="{{ item.username}}"
+    with_items: "{{ users }}"
+
+
+  - name: placing ssh
+    authorized_key: user="{{item.username}}" key="{{ lookup('file', './keyfiles/authorized_key.{{item.username}}.pub')}} " 
+    with_items: "{{ users }}"
+
+
+---
+
+users:
+  - username: ulan
+  - username: miki
