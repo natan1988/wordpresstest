@@ -15,6 +15,3 @@
     with_items: "{{ users }}"
 
 
-users:
-  - username: ulan
-  - username: miki
