@@ -1,6 +1,6 @@
 ---
 - name: pulling keys from remote host to local
-  hosts: all
+  hosts: localhost
   become: yes
   become_method: sudo
   tasks:
