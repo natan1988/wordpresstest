@@ -1,12 +1,16 @@
 ---
-- name: create user and place ssh key
-  hosts: all
+- name: Playbook for tasks
+  hosts: "{{host}}"
   become: yes
   become_method: sudo
-  tasks:
-  - name: create user
-    user: name="{{ item.username}}"
-    with_items: "{{ username}}"
+  tasks: 
+    - name: add multiple users
+      user: 
+        name: "{{item}}"
+        state: present  
+      with_items:
+        - ulan
+        - miki
 
 
   - name: placing ssh
