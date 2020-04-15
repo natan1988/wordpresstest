@@ -11,3 +11,19 @@
       with_items:
         - ulan
         - miki
+
+
+
+---
+- name: Playbook for tasks
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name:  generate key 
+      user:
+        name: "{{item}}"
+        generate_ssh_key: yes
+      with_items:
+        - ulan
+        - miki
